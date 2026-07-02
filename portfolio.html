@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khadija El Bahraoui — Art Director & Graphic Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #F3ECDE;
+    --cream-soft: #FBF8F2;
+    --burgundy: #8F0A0A;
+    --burgundy-deep: #650707;
+    --ink: #201512;
+    --bronze: #A9834A;
+    --line: rgba(32,21,18,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Barlow', sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--burgundy); color:var(--cream);}
+
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:500; color:var(--ink); letter-spacing:0.01em;}
+
+  .eyebrow{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    font-size:0.72rem;
+    color:var(--burgundy);
+    display:flex;
+    align-items:center;
+    gap:0.6em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px;
+    background:var(--burgundy);
+    display:inline-block;
+  }
+
+  a{color:inherit;}
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.4rem 5vw;
+    background:rgba(243,236,222,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, padding .3s ease;
+  }
+  nav.scrolled{ border-bottom:1px solid var(--line); padding:0.9rem 5vw; }
+  .nav-mark{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.35rem;
+    letter-spacing:0.02em;
+  }
+  .nav-links{ display:flex; gap:2.2rem; list-style:none; }
+  .nav-links a{
+    font-family:'Barlow Condensed', sans-serif;
+    font-size:0.82rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    text-decoration:none;
+    position:relative;
+    padding-bottom:4px;
+  }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--burgundy); transition:width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-toggle{ display:none; }
+
+  /* ===== HERO — TITLE CARD ===== */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    position:relative;
+    padding:6rem 6vw 4rem;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at center, transparent 40%, rgba(32,21,18,0.10) 100%);
+    pointer-events:none;
+  }
+  .hero-slug{
+    font-family:'Barlow Condensed', sans-serif;
+    letter-spacing:0.3em;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    color:var(--bronze);
+    opacity:0;
+    animation:fadeUp .9s ease forwards;
+    animation-delay:.15s;
+  }
+  .hero h1{
+    font-size:clamp(3rem, 9vw, 6.4rem);
+    font-style:italic;
+    line-height:1.02;
+    margin:1.3rem 0 0.9rem;
+    opacity:0;
+    animation:fadeUp 1s ease forwards;
+    animation-delay:.4s;
+  }
+  .hero-role{
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.2em;
+    font-size:clamp(0.85rem, 1.6vw, 1.05rem);
+    color:var(--ink);
+    opacity:0;
+    animation:fadeUp 1s ease forwards;
+    animation-delay:.7s;
+  }
+  .hero-role span{ color:var(--burgundy); }
+  .hero-sub{
+    max-width:520px;
+    margin-top:1.6rem;
+    font-size:1.02rem;
+    font-weight:300;
+    color:rgba(32,21,18,0.75);
+    opacity:0;
+    animation:fadeUp 1s ease forwards;
+    animation-delay:.95s;
+  }
+  .hero-locations{
+    margin-top:2.4rem;
+    font-family:'Barlow Condensed', sans-serif;
+    letter-spacing:0.18em;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    color:var(--ink);
+    opacity:0.65;
+    display:flex; gap:0.8rem; align-items:center;
+    opacity:0;
+    animation:fadeUp 1s ease forwards;
+    animation-delay:1.15s;
+  }
+  .hero-locations::before, .hero-locations::after{ content:"—"; opacity:0.5; }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(16px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-slug, .hero h1, .hero-role, .hero-sub, .hero-locations{ animation:none; opacity:1; }
+  }
+
+  .scroll-cue{
+    position:absolute; bottom:2.4rem; left:50%; transform:translateX(-50%);
+    width:1px; height:52px; background:var(--line);
+    overflow:hidden;
+  }
+  .scroll-cue::after{
+    content:""; position:absolute; top:-52px; left:0; width:1px; height:52px;
+    background:var(--burgundy);
+    animation:cue 2.2s ease-in-out infinite;
+  }
+  @keyframes cue{ to{ top:100%; } }
+
+  /* ===== SECTION SHELL ===== */
+  section{ padding:8rem 5vw; position:relative; }
+  .section-inner{ max-width:1080px; margin:0 auto; }
+  .section-head{ margin-bottom:3.2rem; }
+  .section-head h2{ font-size:clamp(2.1rem, 4vw, 3rem); margin-top:0.8rem; }
+
+  section + section{ border-top:1px solid var(--line); }
+
+  /* ===== ABOUT ===== */
+  .about-grid{
+    display:grid; grid-template-columns: 0.85fr 1.15fr; gap:4.5rem; align-items:start;
+  }
+  .monogram{
+    width:100%; aspect-ratio:1/1.2;
+    background:var(--ink);
+    color:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond', serif; font-style:italic;
+    font-size:clamp(5rem, 9vw, 8rem);
+    position:relative;
+    overflow:hidden;
+  }
+  .monogram::after{
+    content:"DER SCHLÜSSEL · 2020    REST IN PIECE · 2022";
+    position:absolute; bottom:1.2rem; left:1.2rem; right:1.2rem;
+    font-family:'Barlow Condensed', sans-serif;
+    font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--bronze);
+  }
+  .about-text p{ margin-bottom:1.3rem; font-size:1.05rem; color:rgba(32,21,18,0.85); max-width:60ch; }
+  .about-text strong{ color:var(--burgundy); font-weight:500; }
+  .lang-row{
+    display:flex; flex-wrap:wrap; gap:0.6rem 1.4rem; margin-top:2rem;
+    font-family:'Barlow Condensed', sans-serif; letter-spacing:0.08em; text-transform:uppercase; font-size:0.78rem;
+    color:var(--ink); opacity:0.7;
+  }
+
+  /* ===== SERVICES ===== */
+  .services-list{ border-top:1px solid var(--line); }
+  .service-row{
+    display:grid; grid-template-columns: 90px 1fr 1.3fr; gap:2rem; align-items:baseline;
+    padding:2.1rem 0; border-bottom:1px solid var(--line);
+    transition:padding-left .3s ease;
+  }
+  .service-row:hover{ padding-left:0.6rem; }
+  .service-num{ font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.3rem; color:var(--bronze); }
+  .service-row h3{ font-size:1.5rem; font-weight:500; }
+  .service-row p{ font-size:0.96rem; color:rgba(32,21,18,0.72); max-width:46ch; }
+
+  /* ===== WORK — REEL ===== */
+  .reel{ display:flex; flex-direction:column; gap:0; }
+  .reel-item{
+    display:grid; grid-template-columns: 1fr 2fr; gap:2.5rem;
+    padding:2.6rem 0; border-bottom:1px solid var(--line);
+  }
+  .reel-item:first-child{ border-top:1px solid var(--line); }
+  .reel-tag{
+    font-family:'Barlow Condensed', sans-serif; text-transform:uppercase; letter-spacing:0.14em;
+    font-size:0.74rem; color:var(--burgundy);
+  }
+  .reel-year{ display:block; margin-top:0.3rem; color:var(--bronze); font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.1rem; }
+  .reel-body h3{ font-size:1.7rem; margin-bottom:0.5rem; }
+  .reel-body p{ font-size:0.98rem; color:rgba(32,21,18,0.75); max-width:60ch; }
+  .credit-block{
+    margin-top:0.9rem; font-family:'Cormorant Garamond', serif; font-style:italic; font-size:0.98rem; color:var(--ink); opacity:0.75;
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-wrap{ display:grid; grid-template-columns: 1fr 1fr; gap:4rem; }
+  .contact-form{ display:flex; flex-direction:column; gap:1.1rem; }
+  .contact-form label{
+    font-family:'Barlow Condensed', sans-serif; text-transform:uppercase; letter-spacing:0.12em; font-size:0.74rem;
+    color:var(--ink); opacity:0.65; margin-bottom:0.3rem; display:block;
+  }
+  .contact-form input, .contact-form textarea{
+    width:100%; background:transparent; border:none; border-bottom:1px solid var(--line);
+    padding:0.7rem 0.1rem; font-family:'Barlow', sans-serif; font-size:1rem; color:var(--ink);
+    outline:none; transition:border-color .25s ease;
+  }
+  .contact-form input:focus, .contact-form textarea:focus{ border-bottom-color:var(--burgundy); }
+  .contact-form textarea{ resize:vertical; min-height:100px; }
+  .send-btn{
+    align-self:flex-start; margin-top:0.8rem;
+    background:var(--burgundy); color:var(--cream-soft);
+    border:none; padding:0.85rem 2.1rem;
+    font-family:'Barlow Condensed', sans-serif; text-transform:uppercase; letter-spacing:0.16em; font-size:0.82rem;
+    cursor:pointer; transition:background .25s ease;
+  }
+  .send-btn:hover{ background:var(--burgundy-deep); }
+
+  .contact-info h3{ font-size:1.6rem; margin-bottom:1rem; }
+  .contact-info p{ color:rgba(32,21,18,0.75); margin-bottom:1.6rem; max-width:44ch; }
+  .contact-links{ display:flex; flex-direction:column; gap:0.7rem; }
+  .contact-links a{
+    text-decoration:none; font-family:'Barlow Condensed', sans-serif; letter-spacing:0.08em;
+    font-size:1rem; border-bottom:1px solid var(--line); padding-bottom:0.4rem; width:fit-content;
+    transition:border-color .25s ease, color .25s ease;
+  }
+  .contact-links a:hover{ border-color:var(--burgundy); color:var(--burgundy); }
+
+  footer{
+    padding:2.4rem 5vw; display:flex; justify-content:space-between; align-items:center;
+    font-family:'Barlow Condensed', sans-serif; letter-spacing:0.1em; font-size:0.72rem; text-transform:uppercase;
+    color:rgba(32,21,18,0.55); border-top:1px solid var(--line);
+  }
+
+  @media (max-width: 860px){
+    .nav-links{ display:none; }
+    .about-grid, .contact-wrap{ grid-template-columns:1fr; }
+    .service-row{ grid-template-columns: 50px 1fr; }
+    .service-row p{ grid-column: 1 / -1; margin-top:0.5rem; }
+    .reel-item{ grid-template-columns:1fr; gap:0.8rem; }
+    section{ padding:5.5rem 6vw; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-mark">K. El Bahraoui</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-slug">INT. PORTFOLIO — CONTINUOUS</div>
+  <h1>Khadija<br>El Bahraoui</h1>
+  <p class="hero-role">Senior Art Director <span>&</span> Graphic Designer</p>
+  <p class="hero-sub">Brand identity, campaign direction, and visual storytelling — shaped across agencies in Milan and a Netflix-level production, now based in Switzerland.</p>
+  <div class="hero-locations">Milan · Zurich · Bern</div>
+  <div class="scroll-cue"></div>
+</header>
+
+<section id="about">
+  <div class="section-inner">
+    <div class="eyebrow">Int. About — Introduction</div>
+    <div class="about-grid" style="margin-top:2rem;">
+      <div class="monogram">K</div>
+      <div class="about-text">
+        <h2 style="margin-bottom:1.6rem;">A cinematic eye,<br>a designer's discipline.</h2>
+        <p>I'm a <strong>Senior Art Director & Graphic Designer</strong> with 8+ years of experience spanning creative agencies in Milan — LFM Agency and De Santis — an international film production with Banijay France for Netflix, and freelance work across Switzerland.</p>
+        <p>I hold a Bachelor in Graphic Design & Art Direction and a Master in Cinematography & Storytelling from Accademia di Belle Arti Milano. That dual training shows in how I work: every brand identity is built like a story, with a beginning, a visual rhythm, and a reason to keep watching.</p>
+        <p>Two of my film credits are catalogued on IMDb: <em>Der Schlüssel</em> (2020, dir. Ghassan Jaradat) and <em>Rest in Piece</em> (2022, dir. Antoine Antabi).</p>
+        <div class="lang-row">
+          <span>Arabic</span><span>Italian</span><span>French</span><span>English</span><span>German (B1/B2)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">Ext. Services — What I Offer</div>
+      <h2>Where I add the most value</h2>
+    </div>
+    <div class="services-list">
+      <div class="service-row">
+        <span class="service-num">I.</span>
+        <h3>Brand Identity</h3>
+        <p>Full visual systems — palette, typography, voice — built to hold up across every touchpoint, from packaging to social.</p>
+      </div>
+      <div class="service-row">
+        <span class="service-num">II.</span>
+        <h3>Campaign Direction</h3>
+        <p>Art direction for integrated campaigns, from concept and moodboard through to final production and brand consistency across channels.</p>
+      </div>
+      <div class="service-row">
+        <span class="service-num">III.</span>
+        <h3>Visual Storytelling</h3>
+        <p>Narrative-driven design — the kind that comes from cinematography training, not just a design brief. Concepts built to be watched, not just seen.</p>
+      </div>
+      <div class="service-row">
+        <span class="service-num">IV.</span>
+        <h3>Print & Production</h3>
+        <p>Print-ready production, InDesign layouts, and hands-on management from first sketch to finished, printed piece.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">Int. Selected Work — Reel</div>
+      <h2>A short reel</h2>
+    </div>
+    <div class="reel">
+      <div class="reel-item">
+        <div>
+          <span class="reel-tag">Film Production</span>
+          <span class="reel-year">2020 — 2022</span>
+        </div>
+        <div class="reel-body">
+          <h3>Banijay France × Netflix</h3>
+          <p>Contributed to an international film production at Netflix scale, working across visual concept and production design within a fast-moving, high-stakes creative pipeline.</p>
+          <div class="credit-block"><a href="https://www.imdb.com/it/title/tt14127808/" target="_blank" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--bronze);">Der Schlüssel (2020)</a> · dir. Ghassan Jaradat<br><a href="https://www.imdb.com/it/title/tt14163054/" target="_blank" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--bronze);">Rest in Piece (2022)</a> · dir. Antoine Antabi</div>
+        </div>
+      </div>
+      <div class="reel-item">
+        <div>
+          <span class="reel-tag">Agency</span>
+          <span class="reel-year">Milan</span>
+        </div>
+        <div class="reel-body">
+          <h3>LFM Agency & De Santis</h3>
+          <p>Senior Art Director work across branding, campaign concepts, and print-to-digital production for agency clients in one of Italy's most competitive creative markets.</p>
+        </div>
+      </div>
+      <div class="reel-item">
+        <div>
+          <span class="reel-tag">Independent</span>
+          <span class="reel-year">Ongoing</span>
+        </div>
+        <div class="reel-body">
+          <h3>Freelance & Personal Practice</h3>
+          <p>Brand identity and content direction for independent clients in Switzerland, alongside an ongoing personal project collecting strangers' stories told on train journeys.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">Ext. Contact — Get In Touch</div>
+      <h2>Let's talk</h2>
+    </div>
+    <div class="contact-wrap">
+      <form class="contact-form" onsubmit="event.preventDefault(); window.location.href='mailto:khadijaelbahraoui@hotmail.it?subject=' + encodeURIComponent('Portfolio enquiry from ' + document.getElementById('cname').value) + '&body=' + encodeURIComponent(document.getElementById('cmsg').value + '\n\n— ' + document.getElementById('cname').value + ' (' + document.getElementById('cemail').value + ')');">
+        <div>
+          <label for="cname">Name</label>
+          <input id="cname" type="text" required>
+        </div>
+        <div>
+          <label for="cemail">Email</label>
+          <input id="cemail" type="email" required>
+        </div>
+        <div>
+          <label for="cmsg">Message</label>
+          <textarea id="cmsg" required></textarea>
+        </div>
+        <button class="send-btn" type="submit">Send message</button>
+      </form>
+      <div class="contact-info">
+        <h3>Based in Switzerland,<br>open to Bern & Lausanne.</h3>
+        <p>Available for full-time roles, freelance projects, and agency collaborations across brand identity, art direction, and visual storytelling.</p>
+        <div class="contact-links">
+          <a href="mailto:khadijaelbahraoui@hotmail.it">khadijaelbahraoui@hotmail.it</a>
+          <a href="https://www.linkedin.com/in/khadija-el-bahraoui-687954218/" target="_blank">LinkedIn ↗</a>
+          <a href="https://www.imdb.com/it/title/tt14127808/" target="_blank">IMDb ↗</a>
+          <a href="#" target="_blank">TikTok — Words for the Soul ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Khadija El Bahraoui</span>
+  <span>Milan · Zurich · Bern</span>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+</script>
+
+</body>
+</html>
